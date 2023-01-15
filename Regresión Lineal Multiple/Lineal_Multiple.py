@@ -60,7 +60,7 @@ X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
 
 nivel_significacion = 0.05  # si una de las variables tiene un nivel de significacion mayor a este SE ELIMINA
 
-
+#- - - - - - - - - -   V A R I A B L E S   O P T I M A S   - - - - - - - - - - 
 X_optimo = X[:, [0,1,2,3,4,5]]
 regresion_ordinal_list_squars = sm.OLS(endog= y, exog = X_optimo).fit()
 
@@ -103,31 +103,29 @@ y_prediction_optimal = regression.predict(X_test)
 error_aprox = np.mean([ abs((y_prediction_optimal[i]-y_test[i])/y_test[i]) for i in range(len(X_test))])
 print(f' Error aproximado entre y_prediction_optimal & y_test = {round(error_aprox, 4)*100} %')
 
-#Visualización de datos
+#- - - - -  Visualización de datos  - - - - - 
 fig1 = plt.figure()
 ax1 = fig1.add_subplot(1,1,1, projection='3d')
 
-# Agregamos los puntos en el plano 3D
-
 ax1.scatter(X_train[:, 1], X_train[:, 2], y_train, c='g')
+
 plot_y = sorted([i for i in regression.predict(X_train)])
 ax1.plot(sorted(X_train[:, 1]), sorted(X_train[:, 2]), plot_y, c="r")
+
 plt.title("Conjunto de Entrenamiento", )
 ax1.set_xlabel('R&D spend', fontsize=10, ha="right", fontweight="regular")
 ax1.set_ylabel('Gastos en Marketing', fontsize=10)
 ax1.set_zlabel('Beneficios', fontsize=10)
-
-
-
 plt.show()
 
 fig2 = plt.figure()
 ax2 = fig2.add_subplot(111, projection='3d')
 
-# Agregamos los puntos en el plano 3D
 ax2.scatter(X_test[:, 1], X_test[:, 2], y_test, c='g', marker='o')
+
 plot_y = sorted([i for i in regression.predict(X_train)])
 ax2.plot(sorted(X_train[:, 1]), sorted(X_train[:, 2]), plot_y, c="r")
+
 plt.title("Conjunto de Testeo")
 ax2.set_xlabel('R&D spend', fontsize=10)
 ax2.set_ylabel('Gastos en Marketing', fontsize=10)
