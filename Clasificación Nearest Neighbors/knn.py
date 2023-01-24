@@ -59,6 +59,34 @@ y falsos negativos
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 
+only_yes = dataset.loc[dataset['Purchased'] == 1]
+
+all_yes_salary = {}
+for i in range(14):
+    num = 10000*i
+    aux = dataset[(dataset['EstimatedSalary'] < 10000 +  num) & (dataset['EstimatedSalary'] > 0 + num)]
+    all_yes_salary[f'{(num + 10000)//1000}k']  = len(aux)
+
+all_yes_age = {}
+for i in range(20):
+    num = 3*i
+    aux = dataset[(dataset['Age'] < 3 +  num) & (dataset['Age'] > 0 + num)]
+    all_yes_age[f'{(num + 3)}']  = len(aux)
+
+plt.title("Cantidad de Clientes que compraron el producto segun su Salario")
+plt.plot(all_yes_salary.keys(), all_yes_salary.values(), color = 'black',
+         linestyle = 'dashed')
+plt.scatter(all_yes_salary.keys(), all_yes_salary.values(), marker = 'o', s = 25, color = 'red')
+plt.show()
+
+plt.title("Cantidad de Clientes que compraron el producto segun su Edad")
+plt.plot(all_yes_age.keys(), all_yes_age.values(), color = 'black',
+         linestyle = 'dashed')
+plt.scatter(all_yes_age.keys(), all_yes_age.values(), marker = 'o', s = 25, color = 'red')
+plt.show()
+
+
+
 # Representación gráfica de los resultados del algoritmo en el Conjunto de Entrenamiento
 from matplotlib.colors import ListedColormap
 X_set, y_set = X_train, y_train
@@ -94,3 +122,7 @@ plt.xlabel('Edad')
 plt.ylabel('Sueldo Estimado')
 plt.legend()
 plt.show()
+
+
+
+
