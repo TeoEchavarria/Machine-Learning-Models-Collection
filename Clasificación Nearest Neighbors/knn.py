@@ -59,6 +59,8 @@ y falsos negativos
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 
+# Visualización de Publico Objetivo
+
 only_yes = dataset.loc[dataset['Purchased'] == 1]
 
 all_yes_salary = {}
