@@ -65,21 +65,21 @@ X_optimo = X[:, [0,1,2,3,4,5]]
 regresion_ordinal_list_squars = sm.OLS(endog= y, exog = X_optimo).fit()
 
 #me muestra la informacion interna y desde ahí podemos ver que variables son realmente significativas
-regresion_ordinal_list_squars.summary()
+print(regresion_ordinal_list_squars.summary())
 
 #observamos el P>|t| valor y si vemos que es mas alto que 0.5 significa que dicho dato no es relevante para la prediccion del modelo
 
 X_optimo = X[:, [0,1,3,4,5]]
 regresion_ordinal_list_squars = sm.OLS(endog= y, exog = X_optimo).fit()
-regresion_ordinal_list_squars.summary()
+print(regresion_ordinal_list_squars.summary())
 
 X_optimo = X[:, [0,3,4,5]]
 regresion_ordinal_list_squars = sm.OLS(endog= y, exog = X_optimo).fit()
-regresion_ordinal_list_squars.summary()
+print(regresion_ordinal_list_squars.summary())
 
 X_optimo = X[:, [0,3,5]]
 regresion_ordinal_list_squars = sm.OLS(endog= y, exog = X_optimo).fit()
-regresion_ordinal_list_squars.summary()
+print(regresion_ordinal_list_squars.summary())
 
 
 """X_optimo = X[:, [0,3]]
