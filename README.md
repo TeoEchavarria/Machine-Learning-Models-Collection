@@ -23,6 +23,7 @@ Cada modelo de regresión está encapsulado en una clase que maneja todos los as
 - **Aprendizaje por refuerzo**: Modelos que aprenden su comportamiento para maximizar una noción de recompensa acumulativa.
 - **Procesamiento del lenguaje natural**: Modelos centrados en el procesamiento y análisis del lenguaje humano.
 - **Aprendizaje profundo**: Modelos que utilizan redes neuronales profundas para aprender de grandes cantidades de datos.
+
 ### Uso
 
 Cada modelo incluido tiene un script asociado que demuestra cómo instanciar y utilizar la clase del modelo. Se proporcionan ejemplos de cómo configurar los parámetros, limpiar los datos, realizar la búsqueda de hiperparámetros, entrenar el modelo, y finalmente, cómo evaluarlo y hacer predicciones. Se recomienda revisar estos scripts para entender el flujo completo de trabajo con cada modelo.
