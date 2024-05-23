@@ -16,10 +16,13 @@ class DataProcessing:
         self.y_train = None
         self.y_test = None
 
-    def load_data(self, x_columns, y_column):
+    def load_data(self, x_columns, y_columns):
         self.dataset = pd.read_csv(self.data_path)
-        self.X = self.dataset[x_columns].values
-        self.y = self.dataset[y_column].values
+        self.X = self.dataset.iloc[:, x_columns].values  # Use iloc for integer-location based indexing
+        if isinstance(y_columns, list):
+            self.y = self.dataset.iloc[:, y_columns].values
+        else:
+            self.y = self.dataset.iloc[:, [y_columns]].values  # Ensure y is always a 2D array even for a single column
 
     def split_data(self):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(

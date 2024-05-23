@@ -17,7 +17,7 @@ class SimpleLinearRegressionModel(DataProcessing):
         return self.regression.predict(X)
 
     def plot_training_results(self, title="Training Results", xlabel="Input Variable", ylabel="Output Variable"):
-        self.plot_model(self.regression, title, xlabel, ylabel, X_train=self.X_train)
+        self.plot_model(self.regression, title, xlabel, ylabel, X_grid=self.X_train)
 
     def plot_testing_results(self, title="Testing Results", xlabel="Input Variable", ylabel="Output Variable"):
-        self.plot_model(self.regression, title, xlabel, ylabel, X_train=self.X_test)
+        self.plot_model(self.regression, title, xlabel, ylabel, X_grid=self.X_test)
