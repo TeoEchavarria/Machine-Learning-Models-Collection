@@ -16,13 +16,13 @@ Cada modelo de regresión está encapsulado en una clase que maneja todos los as
 
 ## Modelos Incluidos
 
-- **Regresión Lineal Simple**
-- **Regresión Lineal Múltiple**
-- **Regresión Polinómica**
-- **Árboles de Decisión para Regresión**
-- **Bosques Aleatorios para Regresión**
-- **Máquinas de Vectores de Soporte para Regresión (SVR)**
-
+- **Regresión**: Modelos destinados a predecir valores continuos.
+- **Clasificación**: Modelos para clasificar entradas en categorías predefinidas.
+- **Agrupación**: Técnicas para agrupar un conjunto de objetos de forma que los objetos de un mismo grupo sean más similares entre sí que los de otros grupos.
+- **Reglas de asociación**: Modelos para descubrir relaciones interesantes entre variables en grandes bases de datos.
+- **Aprendizaje por refuerzo**: Modelos que aprenden su comportamiento para maximizar una noción de recompensa acumulativa.
+- **Procesamiento del lenguaje natural**: Modelos centrados en el procesamiento y análisis del lenguaje humano.
+- **Aprendizaje profundo**: Modelos que utilizan redes neuronales profundas para aprender de grandes cantidades de datos.
 ### Uso
 
 Cada modelo incluido tiene un script asociado que demuestra cómo instanciar y utilizar la clase del modelo. Se proporcionan ejemplos de cómo configurar los parámetros, limpiar los datos, realizar la búsqueda de hiperparámetros, entrenar el modelo, y finalmente, cómo evaluarlo y hacer predicciones. Se recomienda revisar estos scripts para entender el flujo completo de trabajo con cada modelo.
