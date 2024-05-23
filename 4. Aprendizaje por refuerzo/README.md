@@ -1,11 +1,12 @@
-# Modelos de Reglas de Asociación
+# Modelos de Aprendizaje por Refuerzo
 
-Esta carpeta contiene modelos para descubrir relaciones interesantes entre variables en grandes bases de datos.
+Esta carpeta contiene modelos que aprenden su comportamiento para maximizar una noción de recompensa acumulativa, ideal para entornos dinámicos y decisiones secuenciales.
 
 ## Modelos Incluidos
 
-- **Apriori**
-- **Eclat**
+- **Upper Confidence Bound (UCB)**
+- **Muestreo de Thompson (Thompson Sampling)**
+
 
 ### Uso de los Modelos
 
