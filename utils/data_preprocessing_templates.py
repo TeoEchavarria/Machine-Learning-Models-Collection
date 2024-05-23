@@ -1,28 +1,30 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 17 12:38:06 2023
-
-@author: Ckonny
-"""
-
-# Plantilla de Pre Procesado
-
-# Importar las librerías
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-
-# Importar el dataset
-dataset = pd.read_csv('Data.csv')
-X =     dataset.iloc[:,:-1].values
-y =     dataset.iloc[:,3].values
-
-# Dividir el dataset en conjunto de entrenamiento y testing
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state = 0)
+from sklearn.preprocessing import StandardScaler
 
-# Escalado de Variable
-""" from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test) """
+class DataCleanerAndTrainer:
+    def __init__(self, data_path, test_size=1/3, random_state=0):
+        self.data_path = data_path
+        self.test_size = test_size
+        self.random_state = random_state
+        self.dataset = None
+        self.X = None
+        self.y = None
+        self.X_train = None
+        self.X_test = None
+        self.y_train = None
+        self.y_test = None
+
+    def load_data(self, x_columns, y_column):
+        self.dataset = pd.read_csv(self.data_path)
+        self.X = self.dataset[x_columns].values
+        self.y = self.dataset[y_column].values
+
+    def split_data(self):
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            self.X, self.y, test_size=self.test_size, random_state=self.random_state)
+
+    def scale_data(self):
+        sc_x = StandardScaler()
+        self.X_train = sc_x.fit_transform(self.X_train)
+        self.X_test = sc_x.transform(self.X_test)
