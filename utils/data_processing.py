@@ -1,8 +1,9 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-class DataCleanerAndTrainer:
+class DataProcessing:
     def __init__(self, data_path, test_size=1/3, random_state=0):
         self.data_path = data_path
         self.test_size = test_size
@@ -28,3 +29,14 @@ class DataCleanerAndTrainer:
         sc_x = StandardScaler()
         self.X_train = sc_x.fit_transform(self.X_train)
         self.X_test = sc_x.transform(self.X_test)
+        
+    def plot_model(self, regression, title, xlabel, ylabel, X_grid=None):
+        plt.scatter(self.X, self.y, color = "red")
+        if X_grid is not None:
+            plt.plot(X_grid, regression.predict(X_grid), color = "blue")
+        else:
+            plt.plot(self.X, regression.predict(self.X), color = "blue")
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.show()
