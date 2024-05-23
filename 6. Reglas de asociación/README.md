@@ -1,11 +1,11 @@
-# Modelos de Clustering
+# Modelos de Reglas de Asociación
 
-Esta carpeta contiene técnicas de clustering diseñadas para agrupar un conjunto de objetos de manera que los objetos en el mismo grupo sean más similares entre sí que a aquellos en otros grupos.
+Esta carpeta contiene modelos para descubrir relaciones interesantes entre variables en grandes bases de datos.
 
 ## Modelos Incluidos
 
-- **K-Means**
-- **Clustering Jerárquico**
+- **Apriori**
+- **Eclat**
 
 ### Uso de los Modelos
 
