@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
 
 class DataProcessing:
     def __init__(self, data_path, test_size=1/3, random_state=0):
@@ -24,6 +26,16 @@ class DataProcessing:
         else:
             self.y = self.dataset.iloc[:, [y_columns]].values  # Ensure y is always a 2D array even for a single column
 
+    def encode_categorical_features(self, categorical_features_indices):
+        if categorical_features_indices:
+            # Codificar variables categóricas y evitar la trampa de las variables ficticias
+            ct = ColumnTransformer(
+                [('one_hot_encoder', OneHotEncoder(), categorical_features_indices)],
+                remainder='passthrough')
+            self.X = ct.fit_transform(self.X)
+            # Eliminamos la primera columna de cada grupo de dummies
+            self.X = self.X[:, 1:]
+    
     def split_data(self):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             self.X, self.y, test_size=self.test_size, random_state=self.random_state)

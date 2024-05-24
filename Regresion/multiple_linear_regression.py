@@ -1,79 +1,42 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 27 15:19:13 2023
-
-@author: Ckonny
-"""
-
-# Regresión Lineal Múltiple
-
-# Importar las librerías
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-# Importar el dataset
-dataset = pd.read_csv('50_Startups.csv')
-X =     dataset.iloc[:,:-1].values
-y =     dataset.iloc[:,4].values
-
-# Codificar datos Categóricos
-from sklearn import preprocessing
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-
-le_X = preprocessing.LabelEncoder()
-X[:,3] = le_X.fit_transform(X[:,3])
-ct = ColumnTransformer(
-    [('one_hot_encoder', OneHotEncoder(categories='auto'), [3])],   
-    remainder='passthrough')
-X = np.array(ct.fit_transform(X), dtype=float)
-# En consola para la visualización de decimales
-# np.set_printoptions(suppress=True)
-
-# Evitar la trampa de las variables ficticias (eliminamos 1)
-X = X[:, 1:]
-
-# Dividir el dataset en conjunto de entrenamiento y testing
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state = 0)
-
-# Escalado de Variable
-""" from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test) """
-
-# Ajustar el modelo de Regresión Lineal Múltiple  con el conjunto de entrenamiento
 from sklearn.linear_model import LinearRegression
-regression = LinearRegression()
-regression.fit(X_train, y_train)
+import numpy as np
+import statsmodels.api as sm
+from utils.data_processing import DataProcessing
 
-# Predicción de los resultados en el conjunto de Testing
-y_pred = regression.predict(X_test)
+class MultipleLinearRegressionModel(DataProcessing):
+    def __init__(self, data_path, x_columns, y_column, categorical_features_indices, test_size=0.2, random_state=0):
+        super().__init__(data_path, test_size, random_state)
+        self.load_data(x_columns, y_column)
+        self.encode_categorical_features(categorical_features_indices)
+        self.split_data()
+        self.regression = LinearRegression()
 
-# Construir el modelo óptimo de RLM utilizando la eliminación hacia atrás
-import statsmodels.formula.api as sm
-import statsmodels.api as SM
-X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis = 1)
-SL = 0.05
+    def train_model(self):
+        self.regression.fit(self.X_train, self.y_train)
 
-X_opt = X[:, [0, 1, 2, 3, 4, 5]]
-regressor_OLS = SM.OLS(y, X_opt).fit()
-regressor_OLS.summary()
+    def predict(self):
+        return self.regression.predict(self.X_test)
 
-X_opt = X[:, [0, 1, 3, 4, 5]]
-regressor_OLS = SM.OLS(y, X_opt).fit()
-regressor_OLS.summary()
+    def backward_elimination_with_plot(self, significance_level=0.07):
+        # Adding a column of ones for the intercept
+        self.X_train = self.X_train.astype(float)  
+        self.y_train = self.y_train.astype(float)
 
-X_opt = X[:, [0, 3, 4, 5]]
-regressor_OLS = SM.OLS(y, X_opt).fit()
-regressor_OLS.summary()
+        X = np.append(arr=np.ones((self.X_train.shape[0], 1)).astype(float), values=self.X_train, axis=1)
+        numVars = X.shape[1]
+        selected_vars = list(range(numVars))
+        iterations = 0
 
-X_opt = X[:, [0, 3, 5]]
-regressor_OLS = SM.OLS(y, X_opt).fit()
-regressor_OLS.summary()
+        while len(selected_vars) > 1:
+            regressor_OLS = sm.OLS(endog=self.y_train, exog=X[:, selected_vars]).fit()
+            max_p_value = max(regressor_OLS.pvalues)
+            if max_p_value > significance_level:
+                max_p_var_index = np.argmax(regressor_OLS.pvalues)
+                if selected_vars[max_p_var_index] == 0:  # Avoid removing the intercept
+                    break
+                selected_vars.pop(max_p_var_index)  # Remove the variable with the highest p-value
+            else:
+                break
+            iterations += 1
 
-X_opt = X[:, [0, 3]]
-regressor_OLS = SM.OLS(y, X_opt).fit()
-regressor_OLS.summary()
+        return regressor_OLS.summary()
