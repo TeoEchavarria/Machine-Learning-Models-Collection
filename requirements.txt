@@ -1,4 +1,5 @@
 absl-py==2.1.0
+azure-functions==1.19.0
 click==8.1.7
 contourpy==1.2.1
 cycler==0.12.1
