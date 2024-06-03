@@ -23,7 +23,7 @@ class PolynomialRegression:
         X_grid = np.arange(min(self.data_processor.X), max(self.data_processor.X), 0.1)
         X_grid = X_grid.reshape(-1, 1)
         X_grid_poly = self.poly_features.fit_transform(X_grid)
-        self.data_processor.plot_model(self.poly_model, title, xlabel, ylabel, X_grid_poly)
+        self.data_processor.plot_model2(self.poly_model, title, xlabel, ylabel, X_grid_poly, X_grid)
 
     def predict(self, value):
         value_poly = self.poly_features.fit_transform(np.array([[value]]))

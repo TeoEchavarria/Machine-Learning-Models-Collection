@@ -55,3 +55,12 @@ class DataProcessing:
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.show()
+        
+    def plot_model2(self, regression, title, xlabel, ylabel, X_grid=None, X_view=None):
+        plt.scatter(self.X, self.y, color = "red")
+        if X_grid is not None:
+            plt.plot(X_view, regression.predict(X_grid), color = "blue")
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.show()
